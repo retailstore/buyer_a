@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <style>
+        td{
+            display: flex;
+        }
+
+        @media (max-width: 699px) {
+            .flex-container {
+            -webkit-flex-direction: column;
+            flex-direction: column;
+            }
+
+            .flex-item {
+            margin: 0 auto;
+            width: 100%
+            }
+        }
+        @media (min-width: 700px) {
+            .flex-item {
+            width: 50%;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .btn-4{
+            width: 145px;
+            }
+        }
+    </style>
+</head>
+<body>
+<form id="content">
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&lt;</a>
+  <center>
+      <div><input type="search" placeholder="Please enter PO#"></div>
+      <br>
+
+      <input id="rd1" type="radio" name="opt" value="PGPO2605">PGPO2605<br><br>
+      <input id="rd2" type="radio" name="opt" value="HULPO1504">HULPO1504<br><br>
+      <input id="rd3" type="radio" name="opt" value="PGPO1404">PGPO1404<br><br>
+      <input id="rd4" type="radio" name="opt" value="ITPO2903">ITPO2903<br><br>
+      <input id="rd5" type="radio" name="opt" value="PGPO2803">PGPO2803<br><br>
+  </center>
+  <center>
+  <input type="button" value="Search" onclick="#" class="btn-5 btn-blue">
+  <input type="button" value="Check Status" onclick="getPOValue()" class="btn-5a"></center>
+</div>
+
+<div id="main">
+  <image src="../images/pglogo.png" id="logo"><br>
+  <label id="date">Date:- <label id="thetoday"></label></label>
+	<span style="font-size:30px;cursor:pointer" onclick="openNav()" id="open">&gt; </span>
+  <center><h2>Check Order Status</h2></center>
+	<br>
+  <div class="flex-container">
+      <div class="flex-item">
+        <span id="tag">PO#</span>
+        <input id="po" type="text" onload="getPOValue()" class="value">
+      </div>
+      <div class="flex-item">
+        <span id="tag">Lot#</span>
+        <select class="dropdown" id="selectLot" name="lot" onchange="statusPO()">
+            <option>Select</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+      </div>
+  </div>
+  <br><br><br>
+	<div id="displayDiv">
+      <center>
+          <p>Current Status of Lot#<label id="lot"></label> within PO#<br><label id="po1"></label></p>
+        	<p>**PO has been created and is sent to Supplier for <br> processing**</p>
+      </center>
+      <br>
+      <input class="btn-4" onclick="audit()" value="Click for audit trail">
+  </div>
+  <br><br><br>
+	<center>
+    <table>
+      <tr>
+        <td><input onclick="view()" type="button" value="View Status for all Lots" class="btn-1 btn-blue">
+        <input type="button" onclick="back()" value="Back" class="btn-1 btn-blue"></td>
+      </tr>     
+    </table>  
+  </center>
+</div>
+</form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+
+	var month = new Array();
+    month[0] = "January";
+    month[1] = "February";
+    month[2] = "March";
+    month[3] = "April";
+    month[4] = "May";
+    month[5] = "June";
+    month[6] = "July";
+    month[7] = "August";
+    month[8] = "September";
+    month[9] = "October";
+    month[10] = "November";
+    month[11] = "December";
+
+		var date=new Date();
+		var mName = month[date.getMonth()];
+
+		var day=date.getDate();
+		<!-- var month=date.getMonth()+1; -->
+		var year=date.getFullYear();
+		if(day<10)
+			day="0"+day;
+		var today=mName+" "+day+", "+year;
+		document.getElementById("thetoday").innerHTML=String(today);
+
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("main").style.marginLeft = "250px";
+	document.getElementById("open").style.visibility = "hidden";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("main").style.marginLeft= "0";
+	document.getElementById("open").style.visibility = "visible";
+
+}
+function getPOValue(){
+	if(document.getElementById("rd1").checked)
+	{
+		document.getElementById("po").value=document.getElementById("rd1").value;
+	}
+	if(document.getElementById("rd2").checked)
+	{
+		document.getElementById("po").value=document.getElementById("rd2").value;
+	}
+	if(document.getElementById("rd3").checked)
+	{
+		document.getElementById("po").value=document.getElementById("rd3").value;
+	}
+	if(document.getElementById("rd4").checked)
+	{
+		document.getElementById("po").value=document.getElementById("rd4").value;
+	}
+	if(document.getElementById("rd5").checked)
+	{
+		document.getElementById("po").value=document.getElementById("rd5").value;
+	}
+}
+
+function statusPO(){
+	document.getElementById("lot").innerHTML=document.getElementById("selectLot").value;
+	document.getElementById("po1").innerHTML=document.getElementById("po").value;
+	document.getElementById("displayDiv").style.display="block";
+}
+</script>
+
+<script>
+			function po_status() {
+				window.location.href = "E_purchase_order_status.html"
+			}
+			
+			function audit_trail() {
+				window.location.href = "I_audit_trail.html"
+			}
+			
+			function back_login() {
+				window.location.href = "B_Welcome.html"
+			}
+</script>
+
+</body>
+</html>
